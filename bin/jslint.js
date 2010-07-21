@@ -5,6 +5,10 @@
 // JSLINT is provided by fulljslint.js modified to export the global
 /*global JSLINT */
 
+function basename(path) {
+    return path.replace(/\\/g,'/').replace( /.*\//, '' );
+}
+
 (function (file) {
     var e, i, input, len, success, pad,
         path = __filename.split("/").slice(0, -2).join("/"),
@@ -31,7 +35,7 @@
 
     success = JSLINT(input, {
         predef:   [ // CommonJS
-                    "exports", 
+                    "exports",
                     // YUI
                     "YUI",
                     "YAHOO",
@@ -50,13 +54,9 @@
         i = 0;
         len = JSLINT.errors.length;
         for (i=0; i<len; i++) {
-            pad = '' + (i + 1);
-            while (pad.length < 3) {
-                pad = ' ' + pad;
-            }
             e = JSLINT.errors[i];
             if (e) {
-                sys.puts(pad + ' ' + e.line + ',' + e.character + ': ' + e.reason);
+                sys.puts(basename(file) + '(' + e.line + ',' + e.character + ') JSLINT: ' + e.reason);
                 sys.puts( '    ' + (e.evidence || '').replace(/^\s+|\s+$/, ""));
             }
         }
