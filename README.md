@@ -25,6 +25,44 @@ You may also clone this repository then install in your working copy:
 
 This package isn't yet in the npm registry. I'm working on it.
 
+Emacs
+-----
+
+Emacs integration is roughly based on <http://www.emacswiki.org/cgi-bin/wiki/FlymakeJavaScript>
+
+For compiler integration, add the following code to your .emacs
+
+    ;; compilation regexp for jslint
+    (setq compilation-error-regexp-alist
+      (cons '("^[ \t]*\\([A-Za-z.0-9_: \\-]+\\)(\\([0-9]+\\)[,]\\( *[0-9]+\\)) JSLINT: \\(.+\\)$" 1 2 3)
+       compilation-error-regexp-alist))
+
+Here's an example how to call compile with jslint when F2 is pressed:
+
+    (define-key global-map [f2]
+      (lambda ()
+        (interactive)
+        (progn
+          (save-buffer)
+          (compile
+           (concat
+    	(cond
+    	 ((string= "scala" (file-name-extension (buffer-file-name))) "fsc")
+    	 ((string= "py" (file-name-extension (buffer-file-name))) "python")
+    	 ((string= "groovy" (file-name-extension (buffer-file-name))) "groovy")
+    	 ((string= "js" (file-name-extension (buffer-file-name))) "jslint")
+    	 (t "echo no compiler for "))
+    	" \"" (buffer-file-name) "\"")))))
+
+To use jslint with flymake, copy emacs/flymake-jslint-local.el into your emacs scripts directory, and add the fragment below to your .emacs:
+
+    (require 'flymake-jslint-local)
+
+    ;; interation with espresso mode
+    (add-hook 'espresso-mode-hook
+      (lambda () (flymake-mode t)))
+
+
 License
 -------
 
