@@ -11,7 +11,7 @@ may be passed in a JSON-formatted file via --config=FILE option, or by placing i
 
 Sample ~/.jslint that seems to work well for node.js:
 
-   {
+    {
        "predef":   [ 
            "exports",
            "global",
@@ -29,8 +29,7 @@ Sample ~/.jslint that seems to work well for node.js:
        "widget": false,
        "windows" : false,
        "onvar" : true
-   }
-
+    }
 
 Installation
 ------------
