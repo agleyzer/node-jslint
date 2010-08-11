@@ -92,7 +92,7 @@ var args = processArguments(process.ARGV.slice(2));
 var file = args.files[0];
 
 if (!file) {
-    sys.puts("Usage: jslint file.js");
+    sys.puts("Usage: jslint [--config=CONFIG_FILE] file.js");
     process.exit(1);
 }
 
