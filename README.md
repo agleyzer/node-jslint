@@ -5,7 +5,32 @@ Easily use [jslint][] from the command line. Pass it the JS file you'd like to l
 
     jslint foo.js
 
-It assumes [nodejs][] globals and tolerates shebangs.
+It assumes [nodejs][] globals and tolerates shebangs. Alternative JSLINT configuration 
+may be passed in a JSON-formatted file via --config=FILE option, or by placing it in
+ ~/.jslint.
+
+Sample ~/.jslint that seems to work well for node.js:
+
+   {
+       "predef":   [ 
+           "exports",
+           "global",
+           "process",
+           "require",
+           "__filename",
+           "__dirname",
+           "module"       
+       ],
+       "browser" : false,
+       "devel" : false,
+       "rhino" : false,
+       "es5" : false, 
+       "undef" : true,
+       "widget": false,
+       "windows" : false,
+       "onvar" : true
+   }
+
 
 Installation
 ------------
